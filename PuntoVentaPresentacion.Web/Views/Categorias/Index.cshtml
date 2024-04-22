@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PuntoVenta.Dominio.Entity.Categoria>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Listado de Categorias</h1>
+
+<div class="d-flex justify-content-end">
+    <a href="@Url.Action("Create")" class="btn btn-primary">Nueva Categoria</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEstado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEstado)
+            </td>
+            <td>
+                @Html.ActionLink("Ver", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Borrar", "Delete", new {  id = item.Id  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

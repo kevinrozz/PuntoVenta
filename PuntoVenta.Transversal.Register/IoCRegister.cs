@@ -18,12 +18,14 @@ namespace PuntoVenta.Transversal.Register
 
 		private static void RegisrarDominios(IServiceCollection services)
 		{
-			services.AddScoped<IUsuarioDominio, UsuarioDominio>();
-		}
+            services.AddScoped<IUsuarioDominio, UsuarioDominio>();
+            services.AddScoped<ICategoriaDominio, CategoriaDominio>();
+        }
 
 		private static void RegisrarRepositorios(IServiceCollection services)
 		{
 			services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+			services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 		}
 	}
 }

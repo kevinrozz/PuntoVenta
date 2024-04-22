@@ -11,5 +11,6 @@ namespace PuntoVenta.Infraestructura.Data
 		}
 
 		public DbSet<Usuario> Usuario { get; set; }
+		public DbSet<Categoria> Categoria { get; set; }
 	}
 }
