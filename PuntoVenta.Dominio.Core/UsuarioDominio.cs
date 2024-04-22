@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using PuntoVenta.Dominio.Entity;
+﻿using PuntoVenta.Dominio.Entity;
 using PuntoVenta.Dominio.Interface;
 using PuntoVenta.Infraestructura.Interface;
 using PuntoVenta.Transversal.Common;
@@ -11,12 +10,10 @@ namespace PuntoVenta.Dominio.Core
 	public class UsuarioDominio : IUsuarioDominio
 	{
 		private readonly IUsuarioRepository _userRepo;
-		private readonly IMapper _mapper;
 
-		public UsuarioDominio(IUsuarioRepository userRepo, IMapper mapper)
+		public UsuarioDominio(IUsuarioRepository userRepo)
 		{
 			_userRepo = userRepo;
-			_mapper = mapper;
 		}
 
 		public GenericResponse<bool> CreateUsuario(UsuarioAux prmUserAux)
