@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PuntoVenta.Dominio.Interface\PuntoVenta.Dominio.Interface.csproj" />
+    <ProjectReference Include="..\PuntoVenta.Infraestructura.Interface\PuntoVenta.Infraestructura.Interface.csproj" />
+    <ProjectReference Include="..\PuntoVenta.Transversal.Common\PuntoVenta.Transversal.Common.csproj" />
+    <ProjectReference Include="..\PuntoVenta.Transversal.Helpers\PuntoVenta.Transversal.Helpers.csproj" />
+  </ItemGroup>
+
+</Project>

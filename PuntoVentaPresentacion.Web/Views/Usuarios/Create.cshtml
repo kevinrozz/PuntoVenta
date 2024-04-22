@@ -1,0 +1,46 @@
+﻿@model PuntoVenta.Dominio.Entity.UsuarioAux
+
+@{
+    ViewData["Title"] = "Nuevo Usuario";
+}
+
+<h1>Crear Usuario</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PasswordVerificacion" class="control-label"></label>
+                <input asp-for="PasswordVerificacion" class="form-control" />
+                <span asp-validation-for="PasswordVerificacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdRol" class="control-label"></label>
+                @Html.DropDownListFor(model => model.IdRol, (IEnumerable<SelectListItem>)ViewBag.ListRoles, "Seleccione una opción", new { @class = "form-control" })
+                <span asp-validation-for="IdRol" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
