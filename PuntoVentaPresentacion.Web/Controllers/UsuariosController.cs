@@ -67,6 +67,7 @@ namespace PuntoVentaPresentacion.Web.Controllers
                     ModelState.AddModelError("", "Ocurrió un error al crear el usuario.");
                 }
             }
+
             ViewData["ListRoles"] = new SelectList(Enum.GetNames(typeof(EnumRoles)));
             return View(usuarioModel);
         }

@@ -35,7 +35,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuntoVenta.Presentacion.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuntoVentaPresentacion.Web", "PuntoVentaPresentacion.Web\PuntoVentaPresentacion.Web.csproj", "{39A844BC-622C-48EB-84CE-4E986FDB57AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PuntoVenta.Transversal.Mappers", "PuntoVenta.Transversal.Mappers\PuntoVenta.Transversal.Mappers.csproj", "{E626E141-8AAD-40BE-9656-1D5AA56E054B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PuntoVenta.Transversal.Mappers", "PuntoVenta.Transversal.Mappers\PuntoVenta.Transversal.Mappers.csproj", "{E626E141-8AAD-40BE-9656-1D5AA56E054B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{AA931DB0-3B10-47F3-B912-F8F76CE97D89}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Desktop\CreateTables.sql = ..\..\..\Desktop\CreateTables.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

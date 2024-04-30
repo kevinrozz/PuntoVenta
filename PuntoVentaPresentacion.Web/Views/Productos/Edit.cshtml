@@ -1,0 +1,62 @@
+﻿@model PuntoVentaPresentacion.Web.Models.ViewModels.ProductoViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Producto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Producto.Nombre" class="control-label"></label>
+                <input asp-for="Producto.Nombre" class="form-control" />
+                <span asp-validation-for="Producto.Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producto.Descripcion" class="control-label"></label>
+                <input asp-for="Producto.Descripcion" class="form-control" />
+                <span asp-validation-for="Producto.Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producto.Categoria" class="control-label"></label>
+                @Html.DropDownListFor(cate => cate.Producto.IdCategoria, Model.Categorias, "Seleccione Categoria", new { @class = "form-control" })
+                <span asp-validation-for="Producto.IdCategoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producto.Codigo" class="control-label"></label>
+                <input asp-for="Producto.Codigo" class="form-control" />
+                <span asp-validation-for="Producto.Codigo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producto.Costo" class="control-label"></label>
+                <input asp-for="Producto.Costo" class="form-control" />
+                <span asp-validation-for="Producto.Costo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producto.PrecioPublico" class="control-label"></label>
+                <input asp-for="Producto.PrecioPublico" class="form-control" />
+                <span asp-validation-for="Producto.PrecioPublico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producto.CantidadStock" class="control-label"></label>
+                <input asp-for="Producto.CantidadStock" class="form-control" />
+                <span asp-validation-for="Producto.CantidadStock" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Producto.IdEstado" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Producto.IdEstado, (IEnumerable<SelectListItem>)ViewBag.ListEstados, "Seleccione una opción", new { @class = "form-control" })
+                <span asp-validation-for="Producto.IdEstado" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Confirmar" class="btn btn-primary" />
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Regresar</a>
+            </div>
+        </form>
+    </div>
+</div>
