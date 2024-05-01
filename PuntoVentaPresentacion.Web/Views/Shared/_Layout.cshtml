@@ -68,6 +68,9 @@
                             @if (httpAcc.HttpContext.Session.GetString("IdEstado") == EnumEstadosUsuario.Operando.ToString())
                             {
                                 <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Gastos" asp-action="IndexUser">Mis Gastos</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Cajas" asp-action="Close">Cerrar Caja</a>
                                 </li>
                             }

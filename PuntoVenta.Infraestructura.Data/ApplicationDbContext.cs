@@ -16,6 +16,7 @@ namespace PuntoVenta.Infraestructura.Data
         public DbSet<Caja> Caja { get; set; }
         public DbSet<Venta> Venta { get; set; }
         public DbSet<VentaDetalle> VentaDetalle { get; set; }
+        public DbSet<Gasto> Gasto { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

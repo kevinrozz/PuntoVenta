@@ -22,15 +22,14 @@
                 <input asp-for="VentaTotal" class="form-control" readonly />
             </div>
             <div class="form-group">
+                <label asp-for="ValorTotalGastos" class="control-label"></label>
+                <input asp-for="ValorTotalGastos" class="form-control" readonly />
+            </div>
+            <div class="form-group">
                 <label asp-for="ValorTotal" class="control-label"></label>
                 <input asp-for="ValorTotal" class="form-control" />
                 <span asp-validation-for="ValorTotal" class="text-danger"></span>
             </div>
-            @* <div class="form-group">
-                <label asp-for="ValorTotalGastos" class="control-label"></label>
-                <input asp-for="ValorTotalGastos" class="form-control" />
-                <span asp-validation-for="ValorTotalGastos" class="text-danger"></span>
-            </div> *@
             <div class="form-group">
                 <label asp-for="Observaciones" class="control-label"></label>
                 <input asp-for="Observaciones" class="form-control" />

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PuntoVenta.Dominio.Entity.Gasto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Gastos de Caja</h1>
+
+<div class="d-flex justify-content-end">
+    <a href="@Url.Action("Create")" class="btn btn-primary">Nuevo Gasto</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Concepto)
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Valor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Concepto)
+            </td>
+            <td>
+                @Html.ActionLink("Ver", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Borrar", "Delete", new {  id = item.Id  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

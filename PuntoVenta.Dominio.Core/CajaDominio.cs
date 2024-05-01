@@ -3,8 +3,6 @@ using PuntoVenta.Dominio.Interface;
 using PuntoVenta.Infraestructura.Interface;
 using PuntoVenta.Transversal.Common;
 using PuntoVenta.Transversal.Enums;
-using System.Net.Http;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PuntoVenta.Dominio.Core
 {
@@ -13,11 +11,13 @@ namespace PuntoVenta.Dominio.Core
         private readonly ICajaRepository _cajaRepo;
         private readonly IVentaRepository _ventaRepo;
         private readonly IUsuarioRepository _userRepo;
-        public CajaDominio(ICajaRepository cajaRepo, IVentaRepository ventaRepo, IUsuarioRepository userRepo)
+        private readonly IGastoRepository _gastoRepo;
+        public CajaDominio(ICajaRepository cajaRepo, IVentaRepository ventaRepo, IUsuarioRepository userRepo, IGastoRepository gastoRepo)
         {
             _cajaRepo = cajaRepo;
             _ventaRepo = ventaRepo;
             _userRepo = userRepo;
+            _gastoRepo = gastoRepo;
         }
 
         public GenericResponse<bool> AbrirCaja(Caja ObjCaja)
@@ -86,6 +86,9 @@ namespace PuntoVenta.Dominio.Core
                 var objCaja = _cajaRepo.GetCaja(IdCaja);
 
                 objCaja.VentaTotal = ventasByCaja.Sum(t => t.Total);
+
+                var gastosCaja = _gastoRepo.GetGastosByCaja(IdCaja);
+                objCaja.ValorTotalGastos = gastosCaja.Sum(g => g.Valor);
 
                 response.Data = objCaja;
                 response.IsSuccess = true;
@@ -164,7 +167,7 @@ namespace PuntoVenta.Dominio.Core
                 ObjCaja.IdEstado = EnumEstadosCaja.Cerrada;
                 ObjCaja.FechaCierre = DateTime.Now;
                 ObjCaja.ValorNeto = ObjCaja.VentaTotal - ObjCaja.ValorTotalGastos;
-                var diff = ObjCaja.VentaTotal - ObjCaja.ValorTotal;
+                var diff = ObjCaja.ValorNeto - ObjCaja.ValorTotal;
                 ObjCaja.Faltante = diff > 0 ? diff : 0;
                 ObjCaja.Sobrante = diff < 0 ? Math.Abs(diff) : 0;
                 response.Data = _cajaRepo.UpdateCaja(ObjCaja);
