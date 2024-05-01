@@ -1,0 +1,83 @@
+﻿/*
+	Creacion de tablas principales
+*/
+
+drop table VentaDetalle
+drop table Venta
+drop table Caja
+drop table Producto
+drop table Categoria
+
+CREATE TABLE Usuario(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL
+	, Nombre VARCHAR(30) NOT NULL
+	, UserName VARCHAR(20) NOT NULL
+	, PasswordHash VARBINARY(MAX) NULL
+	, PasswordSalt VARBINARY(MAX) NULL
+	, IdRol INT NOT NULL
+	, IdEstado INT NOT NULL
+	, FechaCreacion DATETIME NOT NULL
+	, FechaActualizacion DATETIME NULL
+)
+
+CREATE TABLE Categoria(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL
+	, Nombre VARCHAR(30) NOT NULL
+	, Descripcion VARCHAR(100) NULL
+	, IdEstado INT NOT NULL
+)
+
+CREATE TABLE Producto(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL
+	, IdCategoria UNIQUEIDENTIFIER NOT NULL
+	, Nombre VARCHAR(250) NOT NULL
+	, Descripcion VARCHAR(100) NULL
+	, Codigo VARCHAR(20) NULL
+	, Costo DECIMAL(10, 2) NULL
+	, PrecioPublico DECIMAL(10, 2) NOT NULL
+	, CantidadStock INT NOT NULL
+	, IdEstado INT NOT NULL
+	, FechaCreacion DATETIME NOT NULL
+	, FechaActualizacion DATETIME NULL
+	, CONSTRAINT fk_Producto_Categoria FOREIGN KEY (IdCategoria) REFERENCES Categoria (Id)
+)
+
+CREATE TABLE Caja(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL
+	, IdUsuario UNIQUEIDENTIFIER NOT NULL
+	, ValorInicial DECIMAL(10, 2) NOT NULL
+	, ValorTotal DECIMAL(10, 2) NOT NULL
+	, VentaTotal DECIMAL(10, 2) NULL
+	, ValorTotalGastos DECIMAL(10, 2) NOT NULL
+	, ValorNeto DECIMAL(10, 2) NULL
+	, Faltante DECIMAL(10, 2) NOT NULL
+	, Sobrante DECIMAL(10, 2) NOT NULL
+	, Observaciones VARCHAR(MAX) NULL
+	, IdEstado INT NOT NULL
+	, FechaApertura DATETIME NOT NULL
+	, FechaCierre DATETIME NULL
+	, CONSTRAINT fk_Caja_Usuario FOREIGN KEY (IdUsuario) REFERENCES Usuario (Id)
+)
+
+CREATE TABLE Venta(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL
+	, IdCaja UNIQUEIDENTIFIER NOT NULL
+	, FechaVenta DATETIME NOT NULL
+	, IdEstado INT NOT NULL
+	, IdFormaPago INT NOT NULL
+	, SubTotal DECIMAL(10, 2) NOT NULL
+	, Total DECIMAL(10, 2) NOT NULL
+	, MontoPago DECIMAL(10, 2) NULL	
+	, Consecutivo INT IDENTITY(1,1) NOT NULL 
+	, CONSTRAINT fk_Venta_Caja FOREIGN KEY (IdCaja) REFERENCES Caja (Id)
+)
+
+CREATE TABLE VentaDetalle(
+	Id UNIQUEIDENTIFIER PRIMARY KEY NOT NULL
+	, IdVenta UNIQUEIDENTIFIER NOT NULL
+	, IdProducto UNIQUEIDENTIFIER NOT NULL
+	, Cantidad INT NOT NULL
+	, Total DECIMAL(10, 2) NULL
+	, CONSTRAINT fk_VentaDetalle_Venta FOREIGN KEY (IdVenta) REFERENCES Venta (Id)
+	, CONSTRAINT fk_VentaDetalle_Producto FOREIGN KEY (IdProducto) REFERENCES Producto (Id)
+)
