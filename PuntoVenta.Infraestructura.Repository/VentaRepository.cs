@@ -39,7 +39,26 @@ namespace PuntoVenta.Infraestructura.Repository
 
         public Venta GetVenta(Guid IdVenta)
         {
-            var item = _bd.Venta.FirstOrDefault(t => t.Id == IdVenta);
+            var item = _bd.Venta
+                .Include(v => v.Detalles)
+                .Select(v => new Venta()
+                {
+                    Id = v.Id,
+                    FechaVenta = v.FechaVenta,
+                    IdFormaPago= v.IdFormaPago,
+                    SubTotal = v.SubTotal,
+                    Total = v.Total,
+                    MontoPago = v.MontoPago,
+                    Consecutivo = v.Consecutivo,
+                    Detalles = v.Detalles.Select(d => new VentaDetalle
+                    {
+                        Producto = d.Producto,
+                        Cantidad = d.Cantidad,
+                        Total = d.Total
+                    }).ToList()
+                })
+                .FirstOrDefault(t => t.Id == IdVenta);
+
             return item;
         }
 

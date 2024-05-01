@@ -92,11 +92,31 @@ document.getElementById('formVenta').addEventListener('submit', function (event)
         type: 'POST',
         data: $('#formVenta').serialize(),
         success: function (response) {
-            Swal.fire({
-                icon: "success",
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: "Desea imprimir?",
                 text: "¡Venta registrada exitosamente!",
+                icon: "success",
+                showCancelButton: true,
+                confirmButtonText: "Imprimir",
+                cancelButtonText: "Terminar",
+                reverseButtons: true
             }).then((result) => {
-                window.location.href = 'Create'; 
+                if (result.isConfirmed) {
+                    imprimirVenta(response);
+                    setTimeout(function () {
+                        window.location.href = 'Create'; 
+                    }, 1000);
+                }
+                else if (result.dismiss === Swal.DismissReason.cancel) {
+                    window.location.href = 'Create';
+                }
             });
         },
         error: function (xhr, status, error) {
@@ -104,3 +124,24 @@ document.getElementById('formVenta').addEventListener('submit', function (event)
         }
     });
 });
+
+function imprimirVenta(idVenta) {
+    $.ajax({
+        url: 'GetDetailsById',
+        type: 'GET',
+        data: { idVenta: idVenta },
+        success: function (data) {
+            imprimirContenido(data);
+        },
+        error: function () {
+            console.error("Error al obtener detalles de la venta.");
+        }
+    });
+}
+
+function imprimirContenido(contenido) {
+    var ventanaImpresion = window.open('', '_blank');
+    ventanaImpresion.document.write(contenido);
+    ventanaImpresion.document.close();
+    ventanaImpresion.print();
+}

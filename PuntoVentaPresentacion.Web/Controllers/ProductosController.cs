@@ -199,7 +199,7 @@ namespace PuntoVentaPresentacion.Web.Controllers
 
             if (producto.IsSuccess && producto.Data != null)
                 return PartialView("_DetalleProducto", producto.Data);
-            
+
             return NotFound();
         }
     }

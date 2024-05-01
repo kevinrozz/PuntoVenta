@@ -27,7 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.MontoPago)
             </th>
-            @* <th>Acciones</th> *@
+            <th>Acciones</th>
         </tr> 
     </thead>
     <tbody>
@@ -51,10 +51,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.MontoPago)
             </td>
-            @* <td>
-                @Html.ActionLink("Ver", "Details", new { id = item.Id })
-            </td> *@
+            <td>
+                <button onclick="imprimirVenta('@item.Id')" class="form-control">Imprimir</button>
+            </td>
         </tr>
 }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="~/js/venta.js"></script>
+}

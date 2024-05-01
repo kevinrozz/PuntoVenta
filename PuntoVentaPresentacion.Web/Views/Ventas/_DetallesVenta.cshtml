@@ -1,0 +1,47 @@
+﻿@model PuntoVenta.Dominio.Entity.Venta
+
+@{
+    Layout = null;
+}
+<br />
+<br />
+<h1>Tiquet de venta</h1>
+<hr />
+<h4>Información de la Venta</h4>
+<p><strong>Consecutivo:</strong> @Model.Consecutivo</p>
+<p><strong>Fecha:</strong> @Model.FechaVenta</p>
+<hr />
+<div class="detalle-venta">
+    <h4>Detalles de la Venta</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detalle in Model.Detalles)
+            {
+                <tr>
+                    <td>@detalle.Producto.Nombre</td>
+                    <td>@detalle.Cantidad</td>
+                    <td>@detalle.Total.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<hr />
+<div class="venta-info">
+    <p><strong>ID de la Venta:</strong> @Model.Id</p>
+    <p><strong>Fecha de Venta:</strong> @Model.FechaVenta.ToString("dd/MM/yyyy HH:mm")</p>
+    <p><strong>Forma de Pago:</strong> @Model.IdFormaPago</p>
+    <p><strong>Subtotal:</strong> @Model.SubTotal.ToString("C")</p>
+    <p><strong>Total:</strong> @Model.Total.ToString("C")</p>
+    <p><strong>Monto Recibido:</strong> @Model.MontoPago.ToString("C")</p>
+</div>
+<hr />
+<br />
+<h2>GRACIAS POR SU COMPRA</h2>

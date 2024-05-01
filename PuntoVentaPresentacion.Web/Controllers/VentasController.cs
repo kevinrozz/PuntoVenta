@@ -73,7 +73,7 @@ namespace PuntoVentaPresentacion.Web.Controllers
                     var resultCreate = _ventaDomain.CreateVenta(ventaModel);
 
                     if (resultCreate.IsSuccess)
-                        return RedirectToAction(nameof(Create));
+                        return Json(ventaModel.Id);
                 }
                 catch (Exception ex) 
                 {
@@ -131,6 +131,17 @@ namespace PuntoVentaPresentacion.Web.Controllers
                 return View(venta.Data);
 
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetDetailsById(string idVenta)
+        {
+            var venta = _ventaDomain.GetVenta(new Guid(idVenta));
+
+            if (venta.IsSuccess && venta.Data != null)
+                return View("_DetallesVenta", venta.Data);
+
+            return NotFound();
         }
     }
 }
