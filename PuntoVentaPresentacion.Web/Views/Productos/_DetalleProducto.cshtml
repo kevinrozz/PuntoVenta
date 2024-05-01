@@ -1,0 +1,25 @@
+﻿@model PuntoVenta.Dominio.Entity.Producto
+
+<div class="row">
+    <input type="hidden" class="codigoProducto" value="@Model.Codigo" />
+    <input type="hidden" class="clIdProducto" value="@Model.Id" />
+    <div class="col-md-2">
+        @Model.Codigo
+    </div>
+    <div class="col-md-3">
+        @Model.Nombre
+    </div>
+    <div class="col-md-2">
+        <span class="precioProducto">@Model.PrecioPublico</span>
+    </div>
+    <div class="col-md-1">
+        <input type="number" class="form-control cantidadProducto" value="1" />
+    </div>
+    <div class="col-md-2">
+        <span class="valorTotalProducto">@Model.PrecioPublico</span>
+    </div>
+    <div class="col-md-1">
+        <button type="button" class="btn btn-danger btnEliminarProducto">Eliminar</button>
+    </div>
+</div>
+<hr />

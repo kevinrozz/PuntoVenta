@@ -10,7 +10,6 @@ namespace PuntoVenta.Infraestructura.Repository
 	public class UsuarioRepository : IUsuarioRepository
 	{
 		private readonly ApplicationDbContext _bd;
-
 		public UsuarioRepository(ApplicationDbContext bd)
 		{
 			_bd = bd;
@@ -45,7 +44,7 @@ namespace PuntoVenta.Infraestructura.Repository
 		public IEnumerable<Usuario> GetAllUsuariosActivos()
 		{
 			var resp = _bd.Usuario.AsNoTracking()
-				.Where(user => user.IdEstado == EnumEstados.Activo)
+				.Where(user => user.IdEstado == EnumEstadosUsuario.Activo)
 				.ToList();
 
 			return resp;
@@ -60,7 +59,7 @@ namespace PuntoVenta.Infraestructura.Repository
 		public Usuario Login(string UserName, string Password)
 		{
 			var user = _bd.Usuario.AsNoTracking()
-				.FirstOrDefault(x => x.UserName == UserName && x.IdEstado == EnumEstados.Activo);
+				.FirstOrDefault(x => x.UserName == UserName && new List<EnumEstadosUsuario>() { EnumEstadosUsuario.Activo, EnumEstadosUsuario.Operando }.Contains(x.IdEstado));
 
 			if (user == null) return null;
 

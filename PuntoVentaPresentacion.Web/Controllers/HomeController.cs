@@ -8,31 +8,31 @@ using System;
 using System.Diagnostics;
 using System.Security.Claims;
 using PuntoVenta.Dominio.Interface;
+using PuntoVenta.Transversal.Enums;
 
 namespace PuntoVentaPresentacion.Web.Controllers
 {
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
-		private readonly IUsuarioDominio _userDomain;
+        private readonly IUsuarioDominio _userDomain;
+        private readonly ICajaDominio _cajaDomain;
 
-
-		public HomeController(ILogger<HomeController> logger, IUsuarioDominio userDomain)
+        public HomeController(ILogger<HomeController> logger, IUsuarioDominio userDomain, ICajaDominio cajaDomain)
 		{
 			_logger = logger;
             _userDomain = userDomain;
+            _cajaDomain = cajaDomain;
 		}
 
 		public IActionResult Index()
 		{
             try
             {
-                if (User.Identity.IsAuthenticated)
-                {
+                if (User.Identity.IsAuthenticated && !string.IsNullOrWhiteSpace(HttpContext.Session.GetString("IdUsuario")))
                     return View();
-                }
-                else
-                    return RedirectToAction(nameof(Login));
+
+                return RedirectToAction(nameof(Login));
             }
             catch (Exception ex)
             {
@@ -64,6 +64,17 @@ namespace PuntoVentaPresentacion.Web.Controllers
 
                     var principal = new ClaimsPrincipal(identity);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                    HttpContext.Session.SetString("IdUsuario", resultLogin.Data.Id.ToString());
+                    HttpContext.Session.SetString("IdRol", resultLogin.Data.IdRol.ToString());
+                    HttpContext.Session.SetString("IdEstado", resultLogin.Data.IdEstado.ToString());
+
+                    if (resultLogin.Data.IdEstado == EnumEstadosUsuario.Operando)
+                    {
+                        var resultCajaAbierta = _cajaDomain.GetCajaAbiertaByUser(resultLogin.Data.Id);
+
+                        if (resultCajaAbierta.IsSuccess && resultCajaAbierta.Data != null)
+                            HttpContext.Session.SetString("IdCurrentCaja", resultCajaAbierta.Data.Id.ToString());
+                    }
 
                     return RedirectToAction("Index");
                 }

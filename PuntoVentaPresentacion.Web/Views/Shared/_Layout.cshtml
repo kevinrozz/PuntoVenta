@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using PuntoVenta.Transversal.Enums
+@inject IHttpContextAccessor httpAcc
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +9,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PuntoVentaPresentacion.Web.styles.css" asp-append-version="true" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -24,20 +27,50 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">Categorias</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
-                            </li>
+                            @if (httpAcc.HttpContext.Session.GetString("IdRol") == EnumRoles.Administrador.ToString())
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categorias" asp-action="Index">Categorias</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
+                                </li>
+                            }
+                            else if (httpAcc.HttpContext.Session.GetString("IdRol") == EnumRoles.Cajero.ToString())
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cajas" asp-action="IndexUser">Mis Cajas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Ventas" asp-action="IndexUser">Mis Ventas</a>
+                                </li>
+                                @if (httpAcc.HttpContext.Session.GetString("IdEstado") == EnumEstadosUsuario.Operando.ToString())
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Ventas" asp-action="Create">Realizar Venta</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Cajas" asp-action="Create">Abrir Caja</a>
+                                    </li>
+                                }
+                            }
                         }
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         @if (User.Identity.IsAuthenticated)
                         {
+                            @if (httpAcc.HttpContext.Session.GetString("IdEstado") == EnumEstadosUsuario.Operando.ToString())
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Cajas" asp-action="Close">Cerrar Caja</a>
+                                </li>
+                            }
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Cerrar Sesión</a>
                             </li>
@@ -67,6 +100,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

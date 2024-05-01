@@ -13,6 +13,7 @@ namespace PuntoVenta.Infraestructura.Repository
         {
             _bd = bd;
         }
+
         public bool CreateCategoria(Categoria objCategoria)
         {
             _bd.Categoria.Add(objCategoria);

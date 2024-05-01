@@ -1,0 +1,64 @@
+﻿@model PuntoVenta.Dominio.Entity.Venta
+
+@{
+    ViewData["Title"] = "Ventas";
+}
+
+<h1>Realizar Venta</h1>
+<hr /> 
+<div class="row">
+    <div class="col-md-12">
+        <form id="formVenta" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label>Código de Producto:</label>
+            <input type="text" id="codigoProducto" class="form-control" />
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    <strong>Codigo</strong>
+                </div>
+                <div class="col-md-3">
+                    <strong>Nombre</strong>
+                </div>
+                <div class="col-md-2">
+                    <strong>Precio</strong>
+                </div>
+                <div class="col-md-1">
+                    <strong>Cantidad</strong>
+                </div>
+                <div class="col-md-2">
+                    <strong>Valor Total</strong>
+                </div>
+                <div class="col-md-1">
+                    
+                </div>
+            </div>
+            <hr />
+            <div id="detalleProducto"></div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Total" class="control-label"></label>
+                <input asp-for="Total" class="form-control" readonly/>
+                <span asp-validation-for="Total" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MontoPago" class="control-label"></label>
+                <input asp-for="MontoPago" class="form-control" />
+                <span asp-validation-for="MontoPago" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Cambio</label>
+                <input id="tempCambio" class="form-control" type="text" readonly />
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="REGISTRAR VENTA" class="btn btn-primary" />
+                @* <a href="@Url.Action("Index")" class="btn btn-secondary">Regresar</a> *@
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/venta.js"></script>
+}

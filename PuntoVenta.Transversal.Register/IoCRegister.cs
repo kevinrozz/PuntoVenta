@@ -21,6 +21,8 @@ namespace PuntoVenta.Transversal.Register
             services.AddScoped<IUsuarioDominio, UsuarioDominio>();
             services.AddScoped<ICategoriaDominio, CategoriaDominio>();
 			services.AddScoped<IProductoDominio, ProductoDominio>();
+			services.AddScoped<ICajaDominio, CajaDominio>();
+			services.AddScoped<IVentaDominio, VentaDominio>();
         }
 
 		private static void RegisrarRepositorios(IServiceCollection services)
@@ -28,7 +30,8 @@ namespace PuntoVenta.Transversal.Register
 			services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 			services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 			services.AddScoped<IProductoRepository, ProductoRepository>();
-
+			services.AddScoped<ICajaRepository, CajaRepository>();
+			services.AddScoped<IVentaRepository, VentaRepository>();
         }
     }
 }

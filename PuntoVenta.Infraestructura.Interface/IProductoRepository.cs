@@ -6,6 +6,7 @@ namespace PuntoVenta.Infraestructura.Interface
     {
         ICollection<Producto> GetProductos();
         Producto GetProducto(Guid IdProducto);
+        Producto GetProductoByCode(string code);
         bool CreateProducto(Producto ObjProducto);
         bool UpdateProducto(Producto ObjProducto);
     }

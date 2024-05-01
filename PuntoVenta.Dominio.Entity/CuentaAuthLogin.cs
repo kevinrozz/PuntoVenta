@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PuntoVenta.Transversal.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace PuntoVenta.Dominio.Entity
 {
@@ -12,5 +13,7 @@ namespace PuntoVenta.Dominio.Entity
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string? Token { get; set; }
+        public EnumEstadosUsuario IdEstado { get; set; }
+        public EnumRoles IdRol{ get; set; }
     }
 }

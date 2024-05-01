@@ -30,6 +30,13 @@ namespace PuntoVenta.Infraestructura.Repository
             return response;
         }
 
+        public Producto GetProductoByCode(string code)
+        {
+            var producto = _bd.Producto.FirstOrDefault(pr => pr.Codigo.Equals(code) && pr.IdEstado == EnumEstados.Activo);
+
+            return producto;
+        }
+
         public ICollection<Producto> GetProductos()
         {
             var productos = _bd.Producto.AsTracking()

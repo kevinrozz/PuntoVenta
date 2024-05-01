@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PuntoVenta.Dominio.Entity.Caja>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Mis Cajas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorInicial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VentaTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorTotalGastos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorNeto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEstado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaApertura)
+            </th>
+            @* <th>Acciones</th> *@
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorInicial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VentaTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorTotalGastos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorNeto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEstado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaApertura)
+            </td>
+            @* <td>
+                @Html.ActionLink("Ver", "Details", new { id = item.Id })
+            </td> *@
+        </tr>
+}
+    </tbody>
+</table>

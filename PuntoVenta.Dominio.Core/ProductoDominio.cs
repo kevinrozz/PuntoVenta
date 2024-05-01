@@ -52,6 +52,25 @@ namespace PuntoVenta.Dominio.Core
             return response;
         }
 
+        public GenericResponse<Producto> GetProductoByCode(string code)
+        {
+            var response = new GenericResponse<Producto>();
+
+            try
+            {
+                var productos = _productRepo.GetProductoByCode(code);
+                response.Data = productos;
+                response.IsSuccess = true;
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+
         public GenericResponse<bool> CreateProducto(Producto ObjProducto)
         {
             var response = new GenericResponse<bool>();

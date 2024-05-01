@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PuntoVenta.Dominio.Entity;
 using PuntoVenta.Dominio.Interface;
 using PuntoVenta.Transversal.Enums;
-using System.CodeDom;
 
 namespace PuntoVentaPresentacion.Web.Controllers
 {

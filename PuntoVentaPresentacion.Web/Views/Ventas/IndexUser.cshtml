@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PuntoVenta.Dominio.Entity.Venta>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Mis Ventas</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Consecutivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaVenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdEstado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdFormaPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoPago)
+            </th>
+            @* <th>Acciones</th> *@
+        </tr> 
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Consecutivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaVenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEstado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdFormaPago)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoPago)
+            </td>
+            @* <td>
+                @Html.ActionLink("Ver", "Details", new { id = item.Id })
+            </td> *@
+        </tr>
+}
+    </tbody>
+</table>

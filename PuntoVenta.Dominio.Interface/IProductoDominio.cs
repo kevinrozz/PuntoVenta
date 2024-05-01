@@ -7,6 +7,7 @@ namespace PuntoVenta.Dominio.Interface
     {
         GenericResponse<ICollection<Producto>> GetProductos();
         GenericResponse<Producto> GetProducto(Guid IdProducto);
+        GenericResponse<Producto> GetProductoByCode(string codigo);
         GenericResponse<bool> CreateProducto(Producto ObjProducto);
         GenericResponse<bool> UpdateProducto(Producto ObjProducto);
         GenericResponse<bool> DeleteProducto(Guid IdProducto);

@@ -191,5 +191,16 @@ namespace PuntoVentaPresentacion.Web.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public IActionResult GetDetails(string codigo)
+        {
+            var producto = _prodDomain.GetProductoByCode(codigo);
+
+            if (producto.IsSuccess && producto.Data != null)
+                return PartialView("_DetalleProducto", producto.Data);
+            
+            return NotFound();
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace PuntoVenta.Dominio.Core
 					Nombre = prmUserAux.Nombre,
 					UserName = prmUserAux.UserName,
 					IdRol = prmUserAux.IdRol,
-					IdEstado = EnumEstados.Activo,
+					IdEstado = EnumEstadosUsuario.Activo,
 					FechaCreacion = DateTime.Now,
 					PasswordHash = tupleHashes.Item1,
                     PasswordSalt = tupleHashes.Item2
@@ -56,7 +56,7 @@ namespace PuntoVenta.Dominio.Core
 			{
 				var oldUser = _userRepo.GetUsuario(IdUsuario);
 				oldUser.FechaActualizacion = DateTime.Now;
-				oldUser.IdEstado = EnumEstados.Eliminado;
+				oldUser.IdEstado = EnumEstadosUsuario.Eliminado;
 
 				response.Data = _userRepo.UpdateUsuario(oldUser);
 				response.IsSuccess = true;
@@ -169,7 +169,7 @@ namespace PuntoVenta.Dominio.Core
 				var resultUser = _userRepo.Login(UserName, Password);
 
 				if (resultUser != null)
-					response.Data = new CuentaAuthLogin() { Id = resultUser.Id, UserName = resultUser.UserName };
+					response.Data = new CuentaAuthLogin() { Id = resultUser.Id, UserName = resultUser.UserName, IdEstado = resultUser.IdEstado, IdRol = resultUser.IdRol };
 				else
 					throw new Exception("Error iniciando Sesion");
 				response.IsSuccess = true;
