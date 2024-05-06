@@ -57,29 +57,39 @@ namespace PuntoVentaPresentacion.Web.Controllers
 
                 if (resultLogin.IsSuccess)
                 {
-                    var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, resultLogin.Data.Id.ToString()));
-                    identity.AddClaim(new Claim(ClaimTypes.Name, resultLogin.Data.UserName));
-
-                    var principal = new ClaimsPrincipal(identity);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-                    HttpContext.Session.SetString("IdUsuario", resultLogin.Data.Id.ToString());
-                    HttpContext.Session.SetString("IdRol", resultLogin.Data.IdRol.ToString());
-                    HttpContext.Session.SetString("IdEstado", resultLogin.Data.IdEstado.ToString());
-
-                    if (resultLogin.Data.IdEstado == EnumEstadosUsuario.Operando)
+                    if (new List<EnumEstadosUsuario>() { EnumEstadosUsuario.Activo, EnumEstadosUsuario.Operando }.Contains(resultLogin.Data.IdEstado))
                     {
-                        var resultCajaAbierta = _cajaDomain.GetCajaAbiertaByUser(resultLogin.Data.Id);
+                        var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
 
-                        if (resultCajaAbierta.IsSuccess && resultCajaAbierta.Data != null)
-                            HttpContext.Session.SetString("IdCurrentCaja", resultCajaAbierta.Data.Id.ToString());
+                        identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, resultLogin.Data.Id.ToString()));
+                        identity.AddClaim(new Claim(ClaimTypes.Name, resultLogin.Data.UserName));
+
+                        var principal = new ClaimsPrincipal(identity);
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+                        HttpContext.Session.SetString("IdUsuario", resultLogin.Data.Id.ToString());
+                        HttpContext.Session.SetString("IdRol", resultLogin.Data.IdRol.ToString());
+                        HttpContext.Session.SetString("IdEstado", resultLogin.Data.IdEstado.ToString());
+
+                        if (resultLogin.Data.IdEstado == EnumEstadosUsuario.Operando)
+                        {
+                            var resultCajaAbierta = _cajaDomain.GetCajaAbiertaByUser(resultLogin.Data.Id);
+
+                            if (resultCajaAbierta.IsSuccess && resultCajaAbierta.Data != null)
+                                HttpContext.Session.SetString("IdCurrentCaja", resultCajaAbierta.Data.Id.ToString());
+                        }
+                        return View("Index");
                     }
-
-                    return RedirectToAction("Index");
+                    else
+                    {
+                        TempData["typeAlert"] = "danger";
+                        TempData["messageAlert"] = $"El usuario esta {resultLogin.Data.IdEstado}";
+                        return View();
+                    }
                 }
             }
 
+            TempData["typeAlert"] = "danger";
+            TempData["messageAlert"] = "Usuario y/o credenciales invalidas";
             return View();
         }
 

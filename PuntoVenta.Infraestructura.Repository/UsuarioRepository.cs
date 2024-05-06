@@ -59,7 +59,7 @@ namespace PuntoVenta.Infraestructura.Repository
 		public Usuario Login(string UserName, string Password)
 		{
 			var user = _bd.Usuario.AsNoTracking()
-				.FirstOrDefault(x => x.UserName == UserName && new List<EnumEstadosUsuario>() { EnumEstadosUsuario.Activo, EnumEstadosUsuario.Operando }.Contains(x.IdEstado));
+				.FirstOrDefault(x => x.UserName == UserName && x.IdEstado != EnumEstadosUsuario.Eliminado);
 
 			if (user == null) return null;
 

@@ -48,10 +48,10 @@ namespace PuntoVenta.Presentacion.Test
 
             var usuario = new UsuarioAux()
             {
-                Nombre = "Kevin Quin",
-                UserName = "kevinQuin",
+                Nombre = "SuperAdmin",
+                UserName = "admin",
                 IdRol = EnumRoles.Administrador,
-				Password = "kevin123"
+				Password = "admin123"
             };
 
             var response = service.CreateUsuario(usuario);
